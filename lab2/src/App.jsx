@@ -13,6 +13,7 @@ function App() {
       setNewToDo({id: new Date(), title: event.target.value})
     }
     function handleSubmit(){
+      event.preventDefault();
       setToDos([...toDos, newToDo])
     }
   return (
@@ -22,8 +23,8 @@ function App() {
     onTitleChange={handleNewTitleChange}
     onSubmit={handleSubmit}
     />
-    {/*<ToDoTable toDos={toDos}/>*/}
-    {toDos[0]?.title ?? "N/A"}
+    <ToDoTable toDos={toDos}/>
+
     </>
   );
 }
