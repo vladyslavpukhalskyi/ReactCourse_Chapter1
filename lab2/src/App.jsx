@@ -7,6 +7,7 @@ function App() {
   const [toDos, setToDos] = useState([]);
   const [newToDo, setNewToDo] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [nextId, setNextId] = useState(1);
 
   function handleNewTitleChange(event) {
     setNewToDo(event.target.value);
@@ -14,7 +15,9 @@ function App() {
 
   function handleAddClick() {
     if (newToDo.trim() !== "") {
-      setToDos([...toDos, { id: Math.random(), title: newToDo }]);
+      const newTask = { id: nextId, title: newToDo };
+      setToDos([...toDos, newTask]);
+      setNextId(nextId + 1);
       setNewToDo("");
     }
   }
@@ -22,7 +25,6 @@ function App() {
   function handleSearchClick() {
     setSearchQuery(newToDo);
   }
-
 
   function handleDelete(id) {
     setToDos(toDos.filter((toDo) => toDo.id !== id));
