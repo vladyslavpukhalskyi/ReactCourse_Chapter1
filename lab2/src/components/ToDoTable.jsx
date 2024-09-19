@@ -1,6 +1,7 @@
 import React from 'react';
 import DeleteButton from './Delete';
 
+
 const ToDoTable = ({ toDos, onDelete }) => {
   return (
     <table>
