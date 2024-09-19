@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import ToDoTable from './components/ToDoTable';
 import SearchInput from './components/SearchInput';
+import AddToDoComponent from './components/AddToDoComponent';
 
 function App() {
   const [toDos, setToDos] = useState([]);
@@ -22,25 +23,29 @@ function App() {
     }
   }
 
-  function handleSearchClick() {
-    setSearchQuery(newToDo);
-  }
-
-  function handleDelete(id) {
-    setToDos(toDos.filter((toDo) => toDo.id !== id));
+  function handleSearchChange(event) {
+    setSearchQuery(event.target.value);
   }
 
   const filteredToDos = toDos.filter((toDo) =>
     toDo.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  function handleDelete(id) {
+    setToDos(toDos.filter((toDo) => toDo.id !== id));
+  }
+
   return (
     <>
-      <SearchInput
+      <AddToDoComponent
         title={newToDo}
         onTitleChange={handleNewTitleChange}
-        onAddClick={handleAddClick}
-        onSearchClick={handleSearchClick}
+        onSubmit={handleAddClick}
+      />
+      <SearchInput
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        onSearchClick={() => {}}
       />
       <ToDoTable toDos={filteredToDos} onDelete={handleDelete} />
     </>

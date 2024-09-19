@@ -1,17 +1,14 @@
 import React from 'react';
 
-const SearchInput = ({ title, onTitleChange, onAddClick, onSearchClick }) => {
+const SearchInput = ({ searchQuery, onSearchChange, onSearchClick }) => {
   return (
     <form onSubmit={(event) => event.preventDefault()}>
       <input
         type="text"
-        placeholder="Add/Search To-Do"
-        value={title}
-        onChange={onTitleChange}
+        placeholder="Search To-Do"
+        value={searchQuery}
+        onChange={onSearchChange}
       />
-      <button type="button" onClick={onAddClick}>
-        Add
-      </button>
       <button type="button" onClick={onSearchClick}>
         Search
       </button>
