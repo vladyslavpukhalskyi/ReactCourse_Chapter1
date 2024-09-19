@@ -3,6 +3,7 @@ import './App.css';
 import ToDoTable from './components/ToDoTable';
 import SearchInput from './components/SearchInput';
 import AddToDoComponent from './components/AddToDoComponent';
+import PageTitle from './components/PageTitle';
 
 function App() {
   const [toDos, setToDos] = useState([]);
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <>
+      <PageTitle title='To Do App'/>
       <AddToDoComponent
         title={newToDo}
         onTitleChange={handleNewTitleChange}
