@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import DeleteButton from './Delete';
-import EditButton from './EditButton';
 
 const ToDoTable = ({ toDos, onDelete, onUpdate }) => {
   const [editId, setEditId] = useState(null);
   const [editValue, setEditValue] = useState("");
+  const [error, setError] = useState(false);
 
   const handleEditClick = (toDo) => {
     setEditId(toDo.id);
     setEditValue(toDo.title);
+    setError(false);
   };
 
   const handleSaveClick = (id) => {
-    if (editValue.trim() !== "") {
+    if (editValue.trim() === "") {
+      setError(true);
+    } else {
       onUpdate(id, editValue);
+      setEditId(null);
+      setError(false);
     }
-    setEditId(null);
   };
 
   return (
@@ -33,11 +37,15 @@ const ToDoTable = ({ toDos, onDelete, onUpdate }) => {
             <td>{toDo.id.toString()}</td>
             <td>
               {editId === toDo.id ? (
-                <input
-                  type="text"
-                  value={editValue}
-                  onChange={(e) => setEditValue(e.target.value)}
-                />
+                <>
+                  <input
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                    style={{ borderColor: error ? 'red' : 'initial' }}
+                  />
+                  {error && <div style={{ color: 'red' }}>Title is required</div>}
+                </>
               ) : (
                 toDo.title
               )}
@@ -48,7 +56,9 @@ const ToDoTable = ({ toDos, onDelete, onUpdate }) => {
                   Save
                 </button>
               ) : (
-                <EditButton toDo={toDo} onUpdate={onUpdate} />
+                <button onClick={() => handleEditClick(toDo)}>
+                  Edit
+                </button>
               )}
               <DeleteButton onDelete={() => onDelete(toDo.id)} />
             </td>
